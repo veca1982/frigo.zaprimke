@@ -1,0 +1,75 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}
+    {% if add_zaprimka %}
+        Dodaj Zaprimku
+    {% else %}
+        Uredi Zaprimku
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            {% if add_zaprimka %}
+                <h1>Dodaj Zaprimku</h1>
+            {% else %}
+                <h1>Uredi Zaprimku</h1>
+            {% endif %}
+            <br/>
+            <form method="POST" class="form">
+                {{ form.hidden_tag() }}
+                {{wtf.form_errors(form, hiddens="only")}}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ wtf.form_field(form.koperant) }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ wtf.form_field(form.brutto_masa) }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ wtf.form_field(form.vl_gajbi) }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ wtf.form_field(form.kop_gajbi) }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ wtf.form_field(form.regija) }}
+                    </div>
+                    {% if not add_zaprimka %}
+                        <div class="form-group col-md-6">
+                            {{ wtf.form_field(form.masa_kalib_1x) }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ wtf.form_field(form.masa_kalib_1)}}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ wtf.form_field(form.masa_kalib_2) }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ wtf.form_field(form.masa_kalib_3)}}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ wtf.form_field(form.masa_kalib_4) }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ wtf.form_field(form.masa_kalib_5) }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ wtf.form_field(form.otpad_masa) }}
+                        </div>
+                    {% endif %}
+                </div>
+                <br/>
+                <div class="form-group col-md-12">
+                    {{ wtf.form_field(form.submit) }}
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -4,4 +4,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-	return 'Deployed to Heroku!'
+	return '<h1>Deployed to Heroku!</h1>'

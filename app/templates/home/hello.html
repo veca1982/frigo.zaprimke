@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<title>Hello</title>
+<body>
+    <h1> Frigo - Bonsai </h1>
+    <h1>Zaprimka broj {{zaprimka.id}} </h1>
+    <br/>
+    <br/>
+    <div class="container">
+        <div class="form-row">
+            <div class="form-group col-xs-6">
+                ID : {{ zaprimka.id }}
+            </div>
+            <div class="form-group col-xs-6">
+                Kooperant : {{ zaprimka.koperant.ime }} {{ zaprimka.koperant.prezime }}
+            </div>
+            <div class="form-group col-xs-6">
+                Frigo gajbe : {{ zaprimka.vl_gajbi }}
+            </div>
+            <div class="form-group col-xs-6">
+                Kooperant gajbe : {{ zaprimka.kop_gajbi }}
+            </div>
+            <div class="form-group col-xs-6">
+                Regija : {{ zaprimka.regija }}
+            </div>
+            {% if zaprimka.status == 0 %}
+            <div class="form-group col-xs-6">
+                Brutto masa (kg) : {{ zaprimka.brutto_masa }}
+            </div>
+            {% endif %}
+            {% if zaprimka.status == 1 %}
+            <div class="form-group col-xs-6">
+                Masa kalibar 1x (kg) : {{ zaprimka.masa_kalib_1x }}
+            </div>
+            <div class="form-group col-xs-6">
+                Cijena po kg, kalibar 1x : {{ zaprimka.cijena_1x_o.cijena_kn_kg }}
+            </div>
+            <div class="form-group col-xs-6">
+                Masa kalibar 1 (kg) : {{ zaprimka.masa_kalib_1 }}
+            </div>
+            <div class="form-group col-xs-6">
+                Cijena po kg, kalibar 1 : {{ zaprimka.cijena_1_o.cijena_kn_kg }}
+            </div>
+            <div class="form-group col-xs-6">
+                Masa kalibar 2 (kg) : {{ zaprimka.masa_kalib_2 }}
+            </div>
+            <div class="form-group col-xs-6">
+                Cijena po kg, kalibar 2 : {{ zaprimka.cijena_2_o.cijena_kn_kg }}
+            </div>
+            <div class="form-group col-xs-6">
+                Masa kalibar 3 (kg) : {{ zaprimka.masa_kalib_3 }}
+            </div>
+            <div class="form-group col-xs-6">
+                Cijena po kg, kalibar 3 : {{ zaprimka.cijena_3_o.cijena_kn_kg }}
+            </div>
+            <div class="form-group col-xs-6">
+                Masa kalibar 4 (kg) : {{ zaprimka.masa_kalib_4 }}
+            </div>
+            <div class="form-group col-xs-6">
+                Cijena po kg, kalibar 4 : {{ zaprimka.cijena_4_o.cijena_kn_kg }}
+            </div>
+            <div class="form-group col-xs-6">
+                Masa kalibar 5 (kg) : {{ zaprimka.masa_kalib_5 }}
+            </div>
+            <div class="form-group col-xs-6">
+                Cijena po kg, kalibar 5 : {{ zaprimka.cijena_5_o.cijena_kn_kg }}
+            </div>
+            <div class="form-group col-xs-6">
+                Brutto masa (kg) : {{ zaprimka.brutto_masa }}
+            </div>
+            <div class="form-group col-xs-6">
+                Otpad masa (kg) : {{ zaprimka.otpad_masa }}
+            </div>
+            <div class="form-group col-xs-6">
+                Netto masa (kg) : <b>{{ zaprimka.netto_masa }}</b>
+            </div>
+            <div class="form-group col-xs-6">
+                Za isplatu : <b>{{ zaprimka.cijena_kn }} kn </b>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
