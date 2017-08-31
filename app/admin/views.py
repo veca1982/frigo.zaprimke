@@ -6,7 +6,7 @@ from flask_login import current_user, login_required
 from . import admin
 from .. import db
 
-from forms import DepartmentForm, EmployeeAssignForm, RoleForm
+from .forms import DepartmentForm, EmployeeAssignForm, RoleForm
 from ..models import Department, Employee, Role
 
 

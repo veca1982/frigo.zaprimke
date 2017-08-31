@@ -6,7 +6,7 @@
 from flask import abort, render_template, flash, redirect, url_for, request, jsonify, send_from_directory, make_response
 from flask_login import current_user, login_required
 from ..models import Zaprimka, Koperant, status, status_back, Cijena1x, Cijena1, Cijena2, Cijena3, Cijena4, Cijena5
-from forms import ZaprimkaForm
+from .forms import ZaprimkaForm
 from sqlalchemy.exc import SQLAlchemyError
 from ..web.models import make_paginator
 import numpy as np
