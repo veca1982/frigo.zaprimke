@@ -25,7 +25,7 @@ def upgrade():
     sa.Column('datum_do', sa.Date(), nullable=True),
     sa.Column('tstapm', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_table('cijena_1x',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -34,7 +34,7 @@ def upgrade():
     sa.Column('datum_do', sa.Date(), nullable=True),
     sa.Column('tstapm', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_table('cijena_2',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -43,7 +43,7 @@ def upgrade():
     sa.Column('datum_do', sa.Date(), nullable=True),
     sa.Column('tstapm', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_table('cijena_3',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -52,7 +52,7 @@ def upgrade():
     sa.Column('datum_do', sa.Date(), nullable=True),
     sa.Column('tstapm', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_table('cijena_4',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -61,7 +61,7 @@ def upgrade():
     sa.Column('datum_do', sa.Date(), nullable=True),
     sa.Column('tstapm', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_table('cijena_5',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -70,7 +70,7 @@ def upgrade():
     sa.Column('datum_do', sa.Date(), nullable=True),
     sa.Column('tstapm', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_table('departments',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -78,7 +78,7 @@ def upgrade():
     sa.Column('description', sa.String(length=200), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_table('koperanti',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -87,7 +87,7 @@ def upgrade():
     sa.Column('global_gap', sa.Boolean(), nullable=False),
     sa.Column('tstamp', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_table('roles',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -95,7 +95,7 @@ def upgrade():
     sa.Column('description', sa.String(length=200), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_table('employees',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -110,7 +110,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['department_id'], ['frigo_new.departments.id'], ),
     sa.ForeignKeyConstraint(['role_id'], ['frigo_new.roles.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    schema='frigo_new'
+    schema='frigo'
     )
     op.create_index(op.f('ix_frigo_new_employees_email'), 'employees', ['email'], unique=True, schema='frigo_new')
     op.create_index(op.f('ix_frigo_new_employees_first_name'), 'employees', ['first_name'], unique=False, schema='frigo_new')
@@ -151,7 +151,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['cijena_5'], ['frigo_new.cijena_5.id'], ),
     sa.ForeignKeyConstraint(['id_koperanta'], ['frigo_new.koperanti.id'], ),
     sa.PrimaryKeyConstraint('id'),
-    schema='frigo_new'
+    schema='frigo'
     )
     #op.drop_table('meta_data_about_image_getting')
     #op.drop_table('korisnici')
