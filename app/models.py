@@ -313,7 +313,7 @@ class Role(db.Model):
     """
 
     #__tablename__ = 'roles'
-    __table_args__ = {'schema': schema}
+    #__table_args__ = {'schema': schema}
 
     #id = db.Column(db.Integer, db.Sequence('roles_seq', schema=schema), primary_key=True)
     id = db.Column(db.Integer, db.Sequence('roles_seq'), primary_key=True)
