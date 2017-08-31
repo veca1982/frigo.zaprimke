@@ -312,7 +312,7 @@ class Role(db.Model):
     Create a Role table
     """
 
-    #__tablename__ = 'roles'
+    __tablename__ = 'roles'
     #__table_args__ = {'schema': schema}
 
     #id = db.Column(db.Integer, db.Sequence('roles_seq', schema=schema), primary_key=True)
