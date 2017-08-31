@@ -196,7 +196,7 @@ class Cijena4(db.Model):
 
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    id = db.Column(Integer, Sequence('cijena_4_seq', schema=schema), primary_key=True)
+    #id = db.Column(Integer, Sequence('cijena_4_seq', schema=schema), primary_key=True)
     id = db.Column(Integer, Sequence('cijena_4_seq'), primary_key=True)
     cijena_kn_kg = db.Column(Float)
     datum_od = Column(Date)
@@ -217,7 +217,7 @@ class Cijena5(db.Model):
 
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    id = db.Column(Integer, Sequence('cijena_5_seq', schema=schema), primary_key=True)
+    #id = db.Column(Integer, Sequence('cijena_5_seq', schema=schema), primary_key=True)
     id = db.Column(Integer, Sequence('cijena_5_seq'), primary_key=True)
     cijena_kn_kg = db.Column(Float)
     datum_od = db.Column(Date)
