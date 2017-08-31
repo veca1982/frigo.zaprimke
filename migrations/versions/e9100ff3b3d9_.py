@@ -107,15 +107,15 @@ def upgrade():
     sa.Column('department_id', sa.Integer(), nullable=True),
     sa.Column('role_id', sa.Integer(), nullable=True),
     sa.Column('is_admin', sa.Boolean(), nullable=True),
-    sa.ForeignKeyConstraint(['department_id'], ['frigo_new.departments.id'], ),
-    sa.ForeignKeyConstraint(['role_id'], ['frigo_new.roles.id'], ),
+    sa.ForeignKeyConstraint(['department_id'], ['departments.id'], ),
+    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
     sa.PrimaryKeyConstraint('id')
     #schema='frigo'
     )
-    op.create_index(op.f('ix_frigo_new_employees_email'), 'employees', ['email'], unique=True, schema='frigo_new')
-    op.create_index(op.f('ix_frigo_new_employees_first_name'), 'employees', ['first_name'], unique=False, schema='frigo_new')
-    op.create_index(op.f('ix_frigo_new_employees_last_name'), 'employees', ['last_name'], unique=False, schema='frigo_new')
-    op.create_index(op.f('ix_frigo_new_employees_username'), 'employees', ['username'], unique=True, schema='frigo_new')
+    op.create_index(op.f('ix_frigo_new_employees_email'), 'employees', ['email'], unique=True)
+    op.create_index(op.f('ix_frigo_new_employees_first_name'), 'employees', ['first_name'], unique=False)
+    op.create_index(op.f('ix_frigo_new_employees_last_name'), 'employees', ['last_name'], unique=False)
+    op.create_index(op.f('ix_frigo_new_employees_username'), 'employees', ['username'], unique=True)
     op.create_table('zaprimka',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('id_koperanta', sa.Integer(), nullable=False),
@@ -143,13 +143,13 @@ def upgrade():
     sa.Column('datum_kalibracije', sa.Date(), nullable=True),
     sa.Column('status', sa.Integer(), nullable=False),
     sa.Column('tstamp', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
-    sa.ForeignKeyConstraint(['cijena_1'], ['frigo_new.cijena_1.id'], ),
-    sa.ForeignKeyConstraint(['cijena_1x'], ['frigo_new.cijena_1x.id'], ),
-    sa.ForeignKeyConstraint(['cijena_2'], ['frigo_new.cijena_2.id'], ),
-    sa.ForeignKeyConstraint(['cijena_3'], ['frigo_new.cijena_3.id'], ),
-    sa.ForeignKeyConstraint(['cijena_4'], ['frigo_new.cijena_4.id'], ),
-    sa.ForeignKeyConstraint(['cijena_5'], ['frigo_new.cijena_5.id'], ),
-    sa.ForeignKeyConstraint(['id_koperanta'], ['frigo_new.koperanti.id'], ),
+    sa.ForeignKeyConstraint(['cijena_1'], ['cijena_1.id'], ),
+    sa.ForeignKeyConstraint(['cijena_1x'], ['cijena_1x.id'], ),
+    sa.ForeignKeyConstraint(['cijena_2'], ['cijena_2.id'], ),
+    sa.ForeignKeyConstraint(['cijena_3'], ['cijena_3.id'], ),
+    sa.ForeignKeyConstraint(['cijena_4'], ['cijena_4.id'], ),
+    sa.ForeignKeyConstraint(['cijena_5'], ['cijena_5.id'], ),
+    sa.ForeignKeyConstraint(['id_koperanta'], ['koperanti.id'], ),
     sa.PrimaryKeyConstraint('id')
     #schema='frigo'
     )
