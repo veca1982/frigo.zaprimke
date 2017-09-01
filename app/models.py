@@ -12,7 +12,7 @@ from sqlalchemy.dialects.postgresql import BYTEA
 
 from app import db, login_manager
 
-#schema = 'frigo'
+schema = 'frigo'
 
 
 status = {'Zaprimljeno': 0, 'Obrađeno': 1}
@@ -21,15 +21,14 @@ status_back = {0: 'Zaprimljeno', 1: 'Obrađeno'}
 
 class Koperant(db.Model):
     __tablename__ = 'koperanti'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    #id = db.Column(Integer, Sequence('koperanti_seq', schema=schema), primary_key=True)
-    id = db.Column(Integer, Sequence('koperanti_seq'), primary_key=True)
+    id = db.Column(Integer, Sequence('koperanti_seq', schema=schema), primary_key=True)
     ime = db.Column(String, nullable=False)
     prezime = db.Column(String, nullable=False)
     global_gap = db.Column(Boolean, nullable=False)
-    tstamp = db.Column(DateTime(timezone=True), server_default=func.now())
+    tstapm = db.Column(DateTime(timezone=True), server_default=func.now())
     zaprimke = db.relationship('Zaprimka', back_populates='koperant', lazy='dynamic')
 
     def __init__(self, ime, prezime, global_gap):
@@ -43,13 +42,11 @@ class Koperant(db.Model):
 
 class Zaprimka(db.Model):
     __tablename__ = 'zaprimka'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
-    #id = db.Column(Integer, Sequence('zaprimka_seq', schema=schema), primary_key=True)
-    id = db.Column(Integer, Sequence('zaprimka_seq'), primary_key=True)
-    #id_koperanta = db.Column(Integer, ForeignKey(schema+'.koperanti.id'), nullable=False)
-    id_koperanta = db.Column(Integer, ForeignKey('koperanti.id'), nullable=False)
+    id = db.Column(Integer, Sequence('zaprimka_seq', schema=schema), primary_key=True)
+    id_koperanta = db.Column(Integer, ForeignKey(schema+'.koperanti.id'), nullable=False)
     koperant = db.relationship('Koperant', back_populates='zaprimke')
 
     brutto_masa = db.Column(Float, nullable=False)
@@ -66,17 +63,17 @@ class Zaprimka(db.Model):
     netto_masa = db.Column(Float)
     barcode = db.Column(BYTEA)
     cijena_kn = db.Column(Float)
-    cijena_1x = db.Column(Integer, ForeignKey('cijena_1x.id'), nullable=False)
+    cijena_1x = db.Column(Integer, ForeignKey(schema+'.cijena_1x.id'), nullable=False)
     cijena_1x_o = relationship('Cijena1x', back_populates='zaprimke')
-    cijena_1 = db.Column(Integer, ForeignKey('cijena_1.id'), nullable=False)
+    cijena_1 = db.Column(Integer, ForeignKey(schema+'.cijena_1.id'), nullable=False)
     cijena_1_o = relationship('Cijena1', back_populates='zaprimke')
-    cijena_2 = db.Column(Integer, ForeignKey('cijena_2.id'), nullable=False)
+    cijena_2 = db.Column(Integer, ForeignKey(schema+'.cijena_2.id'), nullable=False)
     cijena_2_o = relationship('Cijena2', back_populates='zaprimke')
-    cijena_3 = db.Column(Integer, ForeignKey('cijena_3.id'), nullable=False)
+    cijena_3 = db.Column(Integer, ForeignKey(schema+'.cijena_3.id'), nullable=False)
     cijena_3_o = relationship('Cijena3', back_populates='zaprimke')
-    cijena_4 = db.Column(Integer, ForeignKey('cijena_4.id'), nullable=False)
+    cijena_4 = db.Column(Integer, ForeignKey(schema+'.cijena_4.id'), nullable=False)
     cijena_4_o = relationship('Cijena4', back_populates='zaprimke')
-    cijena_5 = db.Column(Integer, ForeignKey('cijena_5.id'), nullable=False)
+    cijena_5 = db.Column(Integer, ForeignKey(schema+'.cijena_5.id'), nullable=False)
     cijena_5_o = relationship('Cijena5', back_populates='zaprimke')
     datum_zaprimanja = db.Column(Date)
     datum_kalibracije = db.Column(Date)
@@ -105,12 +102,11 @@ class Zaprimka(db.Model):
 
 class Cijena1(db.Model):
     __tablename__ = 'cijena_1'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
 
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    #id = db.Column(Integer, Sequence('cijena_1_seq', schema=schema), primary_key=True)
-    id = db.Column(Integer, Sequence('cijena_1_seq'), primary_key=True)
+    id = db.Column(Integer, Sequence('cijena_1_seq', schema=schema), primary_key=True)
     cijena_kn_kg = Column(Float)
     datum_od = db.Column(Date)
     datum_do = db.Column(Date)
@@ -126,12 +122,11 @@ class Cijena1(db.Model):
 
 class Cijena2(db.Model):
     __tablename__ = 'cijena_2'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
 
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    #id = db.Column(Integer, Sequence('cijena_2_seq', schema=schema), primary_key=True)
-    id = db.Column(Integer, Sequence('cijena_2_seq'), primary_key=True)
+    id = db.Column(Integer, Sequence('cijena_2_seq', schema=schema), primary_key=True)
     cijena_kn_kg = db.Column(Float)
     datum_od = db.Column(Date)
     datum_do = db.Column(Date)
@@ -148,12 +143,11 @@ class Cijena2(db.Model):
 
 class Cijena1x(db.Model):
     __tablename__ = 'cijena_1x'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
 
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    #id = db.Column(Integer, Sequence('cijena_1x_seq', schema=schema), primary_key=True)
-    id = db.Column(Integer, Sequence('cijena_1x_seq'), primary_key=True)
+    id = db.Column(Integer, Sequence('cijena_1x_seq', schema=schema), primary_key=True)
     cijena_kn_kg = db.Column(Float)
     datum_od = db.Column(Date)
     datum_do = db.Column(Date)
@@ -170,12 +164,11 @@ class Cijena1x(db.Model):
 
 class Cijena3(db.Model):
     __tablename__ = 'cijena_3'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
 
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    #id = db.Column(Integer, Sequence('cijena_3_seq', schema=schema), primary_key=True)
-    id = db.Column(Integer, Sequence('cijena_3_seq'), primary_key=True)
+    id = db.Column(Integer, Sequence('cijena_3_seq', schema=schema), primary_key=True)
     cijena_kn_kg = db.Column(Float)
     datum_od = db.Column(Date)
     datum_do = db.Column(Date)
@@ -192,12 +185,11 @@ class Cijena3(db.Model):
 
 class Cijena4(db.Model):
     __tablename__ = 'cijena_4'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
 
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    #id = db.Column(Integer, Sequence('cijena_4_seq', schema=schema), primary_key=True)
-    id = db.Column(Integer, Sequence('cijena_4_seq'), primary_key=True)
+    id = db.Column(Integer, Sequence('cijena_4_seq', schema=schema), primary_key=True)
     cijena_kn_kg = db.Column(Float)
     datum_od = Column(Date)
     datum_do = db.Column(Date)
@@ -213,12 +205,11 @@ class Cijena4(db.Model):
 
 class Cijena5(db.Model):
     __tablename__ = 'cijena_5'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
 
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    #id = db.Column(Integer, Sequence('cijena_5_seq', schema=schema), primary_key=True)
-    id = db.Column(Integer, Sequence('cijena_5_seq'), primary_key=True)
+    id = db.Column(Integer, Sequence('cijena_5_seq', schema=schema), primary_key=True)
     cijena_kn_kg = db.Column(Float)
     datum_od = db.Column(Date)
     datum_do = db.Column(Date)
@@ -241,19 +232,16 @@ class Employee(UserMixin, db.Model):
     # Ensures table will be named in plural and not in singular
     # as is the name of the model
     __tablename__ = 'employees'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
 
-    #id = db.Column(db.Integer, db.Sequence('employees_seq', schema=schema), primary_key=True)
-    id = db.Column(db.Integer, db.Sequence('employees_seq'), primary_key=True)
+    id = db.Column(db.Integer, db.Sequence('employees_seq', schema=schema), primary_key=True)
     email = db.Column(db.String(60), index=True, unique=True)
     username = db.Column(db.String(60), index=True, unique=True)
     first_name = db.Column(db.String(60), index=True)
     last_name = db.Column(db.String(60), index=True)
     password_hash = db.Column(db.String(128))
-    #department_id = db.Column(db.Integer, db.ForeignKey(schema+'.departments.id'))
-    #role_id = db.Column(db.Integer, db.ForeignKey(schema+'.roles.id'))
-    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    department_id = db.Column(db.Integer, db.ForeignKey(schema+'.departments.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey(schema+'.roles.id'))
     is_admin = db.Column(db.Boolean, default=False)
 
     @property
@@ -292,12 +280,10 @@ class Department(db.Model):
     """
 
     __tablename__ = 'departments'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
 
 
-    #id = db.Column(db.Integer, db.Sequence('departments_seq', schema=schema), primary_key=True)
-    id = db.Column(db.Integer, db.Sequence('departments_seq'), primary_key=True)
-
+    id = db.Column(db.Integer, db.Sequence('departments_seq', schema=schema), primary_key=True)
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
     employees = db.relationship('Employee', backref='department',
@@ -313,10 +299,9 @@ class Role(db.Model):
     """
 
     __tablename__ = 'roles'
-    #__table_args__ = {'schema': schema}
+    __table_args__ = {'schema': schema}
 
-    #id = db.Column(db.Integer, db.Sequence('roles_seq', schema=schema), primary_key=True)
-    id = db.Column(db.Integer, db.Sequence('roles_seq'), primary_key=True)
+    id = db.Column(db.Integer, db.Sequence('roles_seq', schema=schema), primary_key=True)
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
     employees = db.relationship('Employee', backref='role',
