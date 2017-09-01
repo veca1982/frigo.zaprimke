@@ -198,8 +198,8 @@ def hello_html(id):
     }
     zaprimka = Zaprimka.query.get_or_404(id)
     rendered = render_template('home/hello.html', name=id, zaprimka=zaprimka)
-    css = [url_for('static', filename='css/bootstrap.min.css', _external=True), url_for('static', filename='css/pdf.css', _external=True)]
-    pdf = pdfkit.from_string(rendered, False, css=css, options=options, configuration=pdfkit_config)
+    #css = [url_for('static', filename='css/bootstrap.min.css', _external=True), url_for('static', filename='css/pdf.css', _external=True)]
+    pdf = pdfkit.from_string(rendered, False, options=options, configuration=pdfkit_config)
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
