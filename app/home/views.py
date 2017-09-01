@@ -170,6 +170,7 @@ def return_all_zaprimkas():
 @home.route('/hello/', defaults={'id': '13'})
 @home.route('/hello/<id>/')
 def hello_html(id):
+    pdfkit_config = pdfkit.configuration(wkhtmltopdf=settings.WKHTMLTOPDF_CMD)
     options = {
         'page-size': 'Letter',
         'margin-top': '0.75in',
@@ -189,7 +190,7 @@ def hello_html(id):
     zaprimka = Zaprimka.query.get_or_404(id)
     rendered = render_template('home/hello.html', name=id, zaprimka=zaprimka)
     css = ['G:/MyDocuments/frigo zaprimke/bootstrap.min.css', 'C:/Users/Krtalici/PycharmProjects/FrigoZaprimke/app/static/css/pdf.css']
-    pdf = pdfkit.from_string(rendered, False, css=css, options=options)
+    pdf = pdfkit.from_string(rendered, False, css=css, options=options, configuration=pdfkit_config)
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
