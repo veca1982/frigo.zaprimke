@@ -14,8 +14,6 @@ import pdfkit
 
 from .. import db
 
-from flask import current_app as app
-
 from . import home
 
 import datetime
@@ -173,7 +171,11 @@ def return_all_zaprimkas():
 @home.route('/hello/', defaults={'id': '13'})
 @home.route('/hello/<id>/')
 def hello_html(id):
-    pdfkit_config = pdfkit.configuration(wkhtmltopdf=app.WKHTMLTOPDF_CMD)
+    os.environ['PATH'] += os.pathsep + os.path.dirname(sys.executable)  
+    WKHTMLTOPDF_CMD = subprocess.Popen(
+        ['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')], # Note we default to 'wkhtmltopdf' as the binary name
+        stdout=subprocess.PIPE).communicate()[0].strip()
+    pdfkit_config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
     options = {
         'page-size': 'Letter',
         'margin-top': '0.75in',
