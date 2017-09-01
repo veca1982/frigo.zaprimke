@@ -199,7 +199,6 @@ def hello_html(id):
     zaprimka = Zaprimka.query.get_or_404(id)
     rendered = render_template('home/hello.html', name=id, zaprimka=zaprimka)
     css = [url_for('static', filename='bootstrap.min.css', _external=True), url_for('static', filename='pdf.css', _external=True)]
-]
     pdf = pdfkit.from_string(rendered, False, css=css, options=options, configuration=pdfkit_config)
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
