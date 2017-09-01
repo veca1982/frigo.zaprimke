@@ -29,7 +29,7 @@ class Koperant(db.Model):
     ime = db.Column(String, nullable=False)
     prezime = db.Column(String, nullable=False)
     global_gap = db.Column(Boolean, nullable=False)
-    tstapm = db.Column(DateTime(timezone=True), server_default=func.now())
+    tstamp = db.Column(DateTime(timezone=True), server_default=func.now())
     zaprimke = db.relationship('Zaprimka', back_populates='koperant', lazy='dynamic')
 
     def __init__(self, ime, prezime, global_gap):
