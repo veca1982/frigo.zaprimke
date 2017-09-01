@@ -14,6 +14,8 @@ import pdfkit
 
 from .. import db
 
+from .. import app
+
 from . import home
 
 import datetime
@@ -21,8 +23,7 @@ import datetime
 #path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 #config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
 
-path_wkthmltopdf = os.getenv('WKHTMLTOPDF_BINARY')
-pdfkit_config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+pdfkit_config = pdfkit.configuration(wkhtmltopdf=app.WKHTMLTOPDF_CMD)
 
 
 @home.route('/')
