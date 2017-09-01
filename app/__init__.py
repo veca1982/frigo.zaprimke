@@ -20,6 +20,11 @@ def create_app(config_name):
             SECRET_KEY=os.getenv('SECRET_KEY'),
             SQLALCHEMY_DATABASE_URI=os.getenv('DATABASE_URL')
         )
+        # Ensure virtualenv path is part of PATH env var
+        os.environ['PATH'] += os.pathsep + os.path.dirname(sys.executable)  
+        WKHTMLTOPDF_CMD = subprocess.Popen(
+        ['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')], # Note we default to 'wkhtmltopdf' as the binary name
+        stdout=subprocess.PIPE).communicate()[0].strip()
     else:
         app = Flask(__name__, instance_relative_config=True)
         app.config.from_object(app_config[config_name])
