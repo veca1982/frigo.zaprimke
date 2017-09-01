@@ -112,10 +112,10 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     schema='frigo'
     )
-    op.create_index(op.f('ix_frigo_new_employees_email'), 'employees', ['email'], unique=True, schema='frigo_new')
-    op.create_index(op.f('ix_frigo_new_employees_first_name'), 'employees', ['first_name'], unique=False, schema='frigo_new')
-    op.create_index(op.f('ix_frigo_new_employees_last_name'), 'employees', ['last_name'], unique=False, schema='frigo_new')
-    op.create_index(op.f('ix_frigo_new_employees_username'), 'employees', ['username'], unique=True, schema='frigo_new')
+    op.create_index(op.f('ix_frigo_employees_email'), 'employees', ['email'], unique=True, schema='frigo')
+    op.create_index(op.f('ix_frigo_employees_first_name'), 'employees', ['first_name'], unique=False, schema='frigo')
+    op.create_index(op.f('ix_frigo_employees_last_name'), 'employees', ['last_name'], unique=False, schema='frigo')
+    op.create_index(op.f('ix_frigo_employees_username'), 'employees', ['username'], unique=True, schema='frigo')
     op.create_table('zaprimka',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('id_koperanta', sa.Integer(), nullable=False),
