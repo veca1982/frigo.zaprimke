@@ -85,7 +85,7 @@ def upgrade():
     sa.Column('ime', sa.String(), nullable=False),
     sa.Column('prezime', sa.String(), nullable=False),
     sa.Column('global_gap', sa.Boolean(), nullable=False),
-    sa.Column('tstamp', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
+    sa.Column('tstapm', sa.DateTime(timezone=True), server_default=sa.text(u'now()'), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     schema='frigo'
     )

@@ -1,5 +1,5 @@
 # instance/config.py
 
-SECRET_KEY = '7228e25f3eaeb82bc02be55ba3c3f1fb6f96a1a9383c0722be65da0965c58afd'
-SQLALCHEMY_DATABASE_URI = 'postgres://vetskieamburwa:7228e25f3eaeb82bc02be55ba3c3f1fb6f96a1a9383c0722be65da0965c58afd@ec2-184-73-189-221.compute-1.amazonaws.com:5432/d589d4h3qqiui'
+SECRET_KEY = 'b35f8ba53b99c4aaa05208ba19aa03448cbbd60a6da9dddd5ce2c75be8f9ad97'
+SQLALCHEMY_DATABASE_URI = 'postgres://unoxebiyhrlffd:b35f8ba53b99c4aaa05208ba19aa03448cbbd60a6da9dddd5ce2c75be8f9ad97@ec2-107-22-211-182.compute-1.amazonaws.com:5432/d2322escbj58ov'
 #SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:ivavedran@localhost:5432/utilitymeter'
