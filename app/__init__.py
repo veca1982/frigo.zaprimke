@@ -7,9 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 # local imports
 from config import app_config
-import os
-import subprocess
-import sys
 
 db = SQLAlchemy()
 login_manager = LoginManager()
