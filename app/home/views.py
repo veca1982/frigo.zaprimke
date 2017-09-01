@@ -12,6 +12,10 @@ from ..web.models import make_paginator
 import numpy as np
 import pdfkit
 
+import os
+import subprocess
+import sys
+
 from .. import db
 
 from . import home
