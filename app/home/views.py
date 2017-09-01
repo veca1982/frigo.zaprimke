@@ -23,7 +23,6 @@ import datetime
 #path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 #config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
 
-pdfkit_config = pdfkit.configuration(wkhtmltopdf=app.WKHTMLTOPDF_CMD)
 
 
 @home.route('/')
@@ -174,6 +173,7 @@ def return_all_zaprimkas():
 @home.route('/hello/', defaults={'id': '13'})
 @home.route('/hello/<id>/')
 def hello_html(id):
+    pdfkit_config = pdfkit.configuration(wkhtmltopdf=app.WKHTMLTOPDF_CMD)
     options = {
         'page-size': 'Letter',
         'margin-top': '0.75in',
