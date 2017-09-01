@@ -13,7 +13,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 # Ensure virtualenv path is part of PATH env var
-os.environ['PATH'] += os.pathsep + os.path.dirname(sys.executable)  
+#os.environ['PATH'] += os.pathsep + os.path.dirname(sys.executable)  
 WKHTMLTOPDF_CMD = subprocess.Popen(
     ['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')], # Note we default to 'wkhtmltopdf' as the binary name
     stdout=subprocess.PIPE).communicate()[0].strip()

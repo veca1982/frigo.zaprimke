@@ -13,6 +13,7 @@ Jinja2==2.9.6
 Mako==1.0.7
 MarkupSafe==1.0
 numpy==1.13.1
+wkhtmltopdf-pack==0.12.3.0
 pdfkit==0.6.0
 psycopg2==2.7.3.1
 python-dateutil==2.6.1
