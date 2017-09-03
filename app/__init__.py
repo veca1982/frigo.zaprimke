@@ -12,8 +12,6 @@ import os
 db = SQLAlchemy()
 login_manager = LoginManager()
 
-# Ensure virtualenv path is part of PATH env var
-
 
 
 def create_app(config_name):
