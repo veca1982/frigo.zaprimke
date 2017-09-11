@@ -6,8 +6,8 @@ from flask_login import current_user, login_required
 from . import admin
 from .. import db
 
-from .forms import DepartmentForm, EmployeeAssignForm, RoleForm
-from ..models import Department, Employee, Role
+from .forms import DepartmentForm, EmployeeAssignForm, RoleForm, KooperantForm
+from ..models import Department, Employee, Role, Koperant
 
 
 def check_admin():
@@ -246,3 +246,97 @@ def assign_employee(id):
     return render_template('admin/employees/employee.html',
                            employee=employee, form=form,
                            title='Assign Employee').encode( "utf-8" )
+
+
+@admin.route('/kooperants', methods=['GET', 'POST'])
+@login_required
+def list_kooperants():
+    """
+    List all departments
+    """
+    check_admin()
+
+    kooperants = Koperant.query.all()
+
+    return render_template('admin/kooperants/kooperants.html',
+                           kooperants=kooperants, title="Kooperanti")
+
+
+@admin.route('/kooperants/add', methods=['GET', 'POST'])
+@login_required
+def add_kooperant():
+    """
+    Add a department to the database
+    """
+    check_admin()
+
+    add_kooperant = True
+
+    form = KooperantForm()
+    if form.validate_on_submit():
+        kooperant = Koperant(ime=form.ime.data,
+                                prezime=form.prezime.data, global_gap=form.global_gap.data)
+        try:
+            # add department to the database
+            db.session.add(kooperant)
+            db.session.commit()
+            flash('Uspješno ste dodali novog kooperanta.')
+        except:
+            # in case department name already exists
+            flash('Error: kooperant već postoji.')
+
+        # redirect to departments page
+        return redirect(url_for('admin.list_kooperants'))
+
+    # load department template
+    return render_template('admin/departments/department.html', action="Add",
+                           add_department=add_department, form=form,
+                           title="Add Department")
+
+
+@admin.route('/kooperants/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_kooperant(id):
+    """
+    Edit a department
+    """
+    check_admin()
+
+    add_kooperant = False
+
+    kooperant = Koperant.query.get_or_404(id)
+    form = KooperantForm(obj=kooperant)
+    if form.validate_on_submit():
+        kooperant.ime = form.ime.data
+        kooperant.prezime = form.prezime.data
+        kooperant.global_gap = form.global_gap.data
+        db.session.commit()
+        flash('Uspješno ste uredili kooperanta.')
+
+        # redirect to the departments page
+        return redirect(url_for('admin.list_kooperants'))
+
+    form.prezime.data = kooperant.prezime
+    form.ime.data = kooperant.ime
+    return render_template('admin/kooperants/kooperant.html', action="Edit",
+                           add_kooperant=add_kooperant, form=form,
+                           kooperant=kooperant, title="Uredi Kooperanta")
+
+
+@admin.route('/kooperants/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def delete_kooperant(id):
+    """
+    Delete a department from the database
+    """
+    check_admin()
+
+    kooperant = Koperant.query.get_or_404(id)
+    db.session.delete(kooperant)
+    db.session.commit()
+    flash('Izbrisali ste kooperanta.')
+
+    # redirect to the departments page
+    return redirect(url_for('admin.list_kooperants'))
+
+    return render_template(title="Pobriši Kooperanta").encode( "utf-8" )

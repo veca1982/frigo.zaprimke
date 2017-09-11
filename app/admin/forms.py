@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired
 
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
@@ -33,4 +33,11 @@ class EmployeeAssignForm(FlaskForm):
                                   get_label="name")
     role = QuerySelectField(query_factory=lambda: Role.query.all(),
                             get_label="name")
+    submit = SubmitField('Submit')
+
+
+class KooperantForm(FlaskForm):
+    ime = StringField('Ime', validators=[DataRequired()])
+    prezime = StringField('Prezime', validators=[DataRequired()])
+    global_gap = BooleanField("Global gap", default=False)
     submit = SubmitField('Submit')

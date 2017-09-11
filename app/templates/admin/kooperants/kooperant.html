@@ -1,0 +1,30 @@
+<!-- app/templates/admin/kooperant/kooperant.html -->
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% block title %}
+    {% if add_kooperant %}
+        Dodaj Kooperanta
+    {% else %}
+        Uredi Kooperanta
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="content-section">
+ <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <div class="center">
+            {% if add_kooperant %}
+                <h1>Dodaj Kooperanta</h1>
+            {% else %}
+                <h1>Uredi Kooperanta</h1>
+            {% endif %}
+            <br/>
+            {{ wtf.quick_form(form) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
