@@ -21,8 +21,8 @@
                   <th width="20%"> Ime </th>
                   <th width="40%"> Prezime </th>
                   <th width="10%"> Global Gap </th>
+                  <th width="15%"> Šifra </th>
                   <th width="15%"> Edit </th>
-                  <th width="15%"> Delete </th>
                 </tr>
               </thead>
               <tbody>
@@ -37,14 +37,10 @@
                       NE
                     {% endif %}
                   </td>
+                  <td> {{ kooperant.sifra_koperanta }} </td>
                   <td>
                     <a href="{{ url_for('admin.edit_kooperant', id=kooperant.id) }}">
                       <i class="fa fa-pencil"></i> Uredi
-                    </a>
-                  </td>
-                  <td>
-                    <a href="{{ url_for('admin.delete_kooperant', id=kooperant.id) }}">
-                      <i class="fa fa-trash"></i> Pobriši
                     </a>
                   </td>
                 </tr>

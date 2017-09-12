@@ -86,7 +86,7 @@ def add_zaprimka():
     if form.validate_on_submit():
         #form.koperant.data je id selectiranog Koperanta
         zaprimka = Zaprimka(form.brutto_masa.data, form.vl_gajbi.data, form.kop_gajbi.data,
-                            form.regija.data, __get_koperant(form.koperant.data))
+                            form.regija.data, __get_koperant(form.koperant.data), form.napomena.data)
         zaprimka.status = status['Zaprimljeno']
         zaprimka.datum_zaprimanja = datetime.datetime.now()
         try:
@@ -241,6 +241,7 @@ def __populate_zaprimka(zaprimka, form):
     zaprimka.masa_kalib_5 = form.masa_kalib_5.data
     zaprimka.otpad_masa = form.otpad_masa.data
     zaprimka.status = status['Obrađeno']
+    zaprimka.napomena = form.napomena.data
     zaprimka.datum_kalibracije = datetime.datetime.now()
     return zaprimka
 

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DecimalField, IntegerField, SelectField
+from wtforms import StringField, SubmitField, DecimalField, IntegerField, SelectField, TextField
 from wtforms.validators import DataRequired, InputRequired
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
@@ -22,5 +22,6 @@ class ZaprimkaForm(FlaskForm):
     masa_kalib_4 = DecimalField('Masa kalibar 4 kg', id='masa_kalib_4')
     masa_kalib_5 = DecimalField('Masa kalibar 5 kg', id='masa_kalib_5')
     otpad_masa = DecimalField('Otpad masa kg', id='otpad_masa')
+    napomena = TextField('Napomena', id='napomena')
 
     submit = SubmitField('Submit')

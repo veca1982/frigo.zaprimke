@@ -4,7 +4,7 @@
 
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy import Column, ForeignKey, Integer, String, Float, DateTime, Sequence, BLOB, Date, Boolean
+from sqlalchemy import Column, ForeignKey, Integer, String, Float, DateTime, Sequence, BLOB, Date, Boolean, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import datetime
@@ -28,6 +28,7 @@ class Koperant(db.Model):
     ime = db.Column(String, nullable=False)
     prezime = db.Column(String, nullable=False)
     global_gap = db.Column(Boolean, nullable=False)
+    sifra_koperanta = db.Column(db.String(4), unique=True)
     tstapm = db.Column(DateTime(timezone=True), server_default=func.now())
     zaprimke = db.relationship('Zaprimka', back_populates='koperant', lazy='dynamic')
 
@@ -77,17 +78,19 @@ class Zaprimka(db.Model):
     cijena_5_o = relationship('Cijena5', back_populates='zaprimke')
     datum_zaprimanja = db.Column(Date)
     datum_kalibracije = db.Column(Date)
+    napomena = db.Column(Text)
     status = db.Column(Integer, nullable=False)
     tstamp = db.Column(DateTime(timezone=True), server_default=func.now())
 
 
-    def __init__(self, brutto_masa, vl_gajbi, kop_gajbi, regija, koperant):
+    def __init__(self, brutto_masa, vl_gajbi, kop_gajbi, regija, koperant, napomena):
         self.brutto_masa = brutto_masa
         self.vl_gajbi = vl_gajbi
         self.kop_gajbi = kop_gajbi
         self.regija = regija
         self.koperant = koperant
         self.id_koperanta = koperant.id
+        self.napomena = napomena
 
     def __repr__ (self):
         return '<id {}>'.format(self.id)

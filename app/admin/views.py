@@ -1,6 +1,7 @@
 # app/admin/views.py
 # -*- coding: utf-8 -*-
 
+
 from flask import abort, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required
 
@@ -249,6 +250,7 @@ def assign_employee(id):
                            title='Assign Employee').encode( "utf-8" )
 
 
+# Kooperant Views
 @admin.route('/kooperants', methods=['GET', 'POST'])
 @login_required
 def list_kooperants():
@@ -311,6 +313,7 @@ def edit_kooperant(id):
         kooperant.ime = form.ime.data
         kooperant.prezime = form.prezime.data
         kooperant.global_gap = form.global_gap.data
+        kooperant.sifra_koperanta = form.sifra_koperanta.data
         db.session.commit()
         flash('Uspješno ste uredili kooperanta.')
 
@@ -319,6 +322,7 @@ def edit_kooperant(id):
 
     form.prezime.data = kooperant.prezime
     form.ime.data = kooperant.ime
+    form.sifra_koperanta.data = kooperant.sifra_koperanta
     return render_template('admin/kooperants/kooperant.html', action="Edit",
                            add_kooperant=add_kooperant, form=form,
                            kooperant=kooperant, title="Uredi Kooperanta")
