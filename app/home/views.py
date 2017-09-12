@@ -82,7 +82,7 @@ def add_zaprimka():
     add_zaprimka = True
 
     form = ZaprimkaForm()
-    form.koperant.choices = [(row.id, row.prezime+', '+row.ime) for row in Koperant.query.all()]
+    form.koperant.choices = [(row.id, row.prezime+', '+row.ime) for row in Koperant.query.order_by(Koperant.prezime.asc()).all()]
     if form.validate_on_submit():
         #form.koperant.data je id selectiranog Koperanta
         zaprimka = Zaprimka(form.brutto_masa.data, form.vl_gajbi.data, form.kop_gajbi.data,
@@ -112,7 +112,7 @@ def edit_zaprimka(id):
     add_zaprimka = False
     zaprimka = Zaprimka.query.get_or_404(id)
     form = ZaprimkaForm(obj=zaprimka)
-    form.koperant.choices = [(row.id, row.prezime + ', ' + row.ime) for row in Koperant.query.all()]
+    form.koperant.choices = [(row.id, row.prezime + ', ' + row.ime) for row in Koperant.query.order_by(Koperant.prezime.asc()).all()]
 
     if request.method == 'GET':
         #prikayi onog koji jest u bazi
