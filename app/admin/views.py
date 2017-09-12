@@ -259,7 +259,7 @@ def list_kooperants():
     """
     check_admin()
 
-    kooperants = Koperant.query.all()
+    kooperants = Koperant.query.order_by(Koperant.prezime.asc()).all()
 
     return render_template('admin/kooperants/kooperants.html',
                            kooperants=kooperants, title="Kooperanti")
