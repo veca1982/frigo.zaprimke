@@ -19,12 +19,13 @@
                   <thead>
                     <tr>
                       <th width="5%"> Id </th>
-                      <th width="30%"> Koperant </th>
-                      <th width="15%"> Brutto massa </th>
+                      <th width="25%"> Koperant </th>
+                      <th width="10%"> Brutto massa </th>
                       <th width="15%"> Datum zaprimanja </th>
                       <th width="15%"> Status </th>
                       <th width="10%"> Edit </th>
                       <th width="10%"> Pdf </th>
+                      <th width="10%"> Delete </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -43,6 +44,11 @@
                       <td>
                         <a href="{{ url_for('home.hello_html', id=zaprimka.id) }}">
                           <i class="fa fa-pencil"></i> Pdf
+                        </a>
+                      </td>
+                      <td>
+                        <a href="{{ url_for('home.delete_zaprimka', id=zaprimka.id) }}">
+                          <i class="fa fa-trash"></i> Pobriši
                         </a>
                       </td>
                     </tr>

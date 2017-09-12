@@ -139,6 +139,22 @@ def edit_zaprimka(id):
                            title="Uredi Zaprimku").encode( "utf-8" )
 
 
+@home.route('/home/delete_zaprimka/<int:id>', methods=['GET', 'POST'])
+@login_required
+def delete_zaprimka(id):
+    """
+    Delete a department from the database
+    """
+
+    zaprimka = Zaprimka.query.get_or_404(id)
+    db.session.delete(zaprimka)
+    db.session.commit()
+    flash('Izbrisali ste zaprimku.')
+
+    # redirect to the departments page
+    return redirect(url_for('home.zaprimke'))
+
+
 # add admin dashboard view
 @home.route('/admin/dashboard')
 @login_required
