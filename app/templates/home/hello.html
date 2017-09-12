@@ -23,12 +23,23 @@
             <div class="form-group col-xs-6">
                 Regija : {{ zaprimka.regija }}
             </div>
+            <div class="form-group col-xs-6">
+                Datum zaprimke : {{ zaprimka.datum_zaprimanja }}
+            </div>
             {% if zaprimka.status == 0 %}
             <div class="form-group col-xs-6">
                 Brutto masa (kg) : {{ zaprimka.brutto_masa }}
             </div>
+            {% if zaprimka.napomena %}
+            <div class="form-group col-xs-12">
+                Napomena : {{ zaprimka.napomena }}
+            </div>
+            {% endif %}
             {% endif %}
             {% if zaprimka.status == 1 %}
+            <div class="form-group col-xs-6">
+                Datum obrade : {{ zaprimka.datum_kalibracije }}
+            </div>
             <div class="form-group col-xs-6">
                 Masa kalibar 1x (kg) : {{ zaprimka.masa_kalib_1x }}
             </div>
@@ -74,8 +85,13 @@
             <div class="form-group col-xs-6">
                 Netto masa (kg) : <b>{{ zaprimka.netto_masa }}</b>
             </div>
-            <div class="form-group col-xs-6">
-                Za isplatu : <b>{{ zaprimka.cijena_kn }} kn </b>
+            {% if zaprimka.napomena %}
+            <div class="form-group col-xs-12">
+                Napomena : {{ zaprimka.napomena }}
+            </div>
+            {% endif %}
+            <div class="form-group col-xs-12">
+                Za isplatu : <b>{{ '%0.2f' % zaprimka.cijena_kn }} kn </b>
             </div>
             {% endif %}
         </div>
