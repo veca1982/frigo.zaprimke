@@ -2,12 +2,14 @@
 
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField
+from wtforms import StringField, SubmitField, BooleanField, SelectField, DecimalField, DateField
 from wtforms.validators import DataRequired, Length
 
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
 from ..models import Department, Role
+import config
+
 
 
 class DepartmentForm(FlaskForm):
@@ -44,4 +46,12 @@ class KooperantForm(FlaskForm):
     prezime = StringField('Prezime', validators=[DataRequired()])
     sifra_koperanta = StringField('Šifra kooperanta', validators=[DataRequired(), Length(min=4, max=4)])
     global_gap = BooleanField("Global gap", default=False)
+    submit = SubmitField('Submit')
+
+
+class CijenaForm(FlaskForm):
+    caliber = SelectField('Kalibri', coerce=int, choices=config.caliber_categories,  id='caliber')
+    cijena_kn_kg = DecimalField('Cijena po kg', validators=[DataRequired()], id='cijena')
+    datum_od = DateField('Datum od', validators=[DataRequired()], id='datum_od')
+    datum_do = DateField('Datum do', id='datum_do')
     submit = SubmitField('Submit')

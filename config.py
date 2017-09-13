@@ -30,3 +30,5 @@ app_config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig
 }
+caliber_categories = [(5, '1x'), (1, '1'), (2, '2'), (3, '3'), (4, '4')]
+

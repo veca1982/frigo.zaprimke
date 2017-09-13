@@ -2,14 +2,18 @@
 # -*- coding: utf-8 -*-
 
 
-from flask import abort, flash, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for, request
 from flask_login import current_user, login_required
 
 from . import admin
 from .. import db
 
-from .forms import DepartmentForm, EmployeeAssignForm, RoleForm, KooperantForm
+from .forms import DepartmentForm, EmployeeAssignForm, RoleForm, KooperantForm, CijenaForm
 from ..models import Department, Employee, Role, Koperant
+
+import config
+from .business import get_cijena
+from datetime import datetime
 
 
 def check_admin():
@@ -345,3 +349,54 @@ def delete_kooperant(id):
     return redirect(url_for('admin.list_kooperants'))
 
     return render_template(title="Pobriši Kooperanta").encode( "utf-8" )
+
+@admin.route('/cijene/add', methods=['GET', 'POST'])
+@login_required
+def add_cijena():
+    """
+    Add a department to the database
+    """
+    check_admin()
+    select_list = list(map(lambda caliber: caliber[1], config.caliber_categories))
+    form = CijenaForm()
+
+    if request.method == 'POST':
+        message = __validate(request)
+        if not message:
+            caliber = request.form['caliber']
+            cijena = get_cijena(caliber, request.form['cijena_kn_kg'])
+            cijena = __populate_with_dates(cijena, request)
+            try:
+                # add department to the database
+                db.session.add(cijena)
+                db.session.commit()
+                flash('Uspješno ste dodali novu cijenu.')
+            except:
+                # in case department name already exists
+                flash('Error: Puče grom u srcu mom.')
+            # redirect to departments page
+            return redirect(url_for('home.zaprimke'))
+        else:
+            flash(message=message)
+
+    # load department template
+    return render_template('admin/cijene/cijena.html', action="Add",
+                           form=form,
+                           select_list=select_list,
+                           title="Dodaj cijenu")
+
+def __populate_with_dates(cijena, request):
+    fmt = '%d. %m. %Y %H:%M'
+    if request.form['datum_od'] and request.form['datum_od'] != '':
+        cijena.datum_od = datetime.strptime(request.form['datum_od'], fmt)
+    return cijena
+
+def __validate(request):
+    if not request.form['caliber'] and request.form['caliber'] == '':
+        return "Popunite kalibar!"
+    elif not request.form['cijena_kn_kg'] and request.form['cijena_kn_kg'] == '':
+        return "Popunite cijenu!"
+    elif not request.form['datum_od'] and request.form['datum_od'] == '':
+        return "Stavite datum od!"
+    else:
+        return None

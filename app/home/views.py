@@ -264,28 +264,35 @@ def __populate_zaprimka(zaprimka, form):
 
 def __calculate_cijene(zaprimka):
     zaprimka.netto_masa = zaprimka.brutto_masa - zaprimka.otpad_masa
-    cijena_1x = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(Cijena1x.datum_do == None).first()
-    zaprimka.cijena_1x_o = cijena_1x
-    zaprimka.cijena_1x = cijena_1x.id
+    if not zaprimka.cijena_1x_o:
+        cijena_1x = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(Cijena1x.datum_do == None).first()
+        zaprimka.cijena_1x_o = cijena_1x
+        zaprimka.cijena_1x = cijena_1x.id
     zaprimka.cijena_kn = float(zaprimka.cijena_1x_o.cijena_kn_kg) * float(zaprimka.masa_kalib_1x)
-    cijena_1 = Cijena1.query.order_by(Cijena1.tstapm.desc()).filter(Cijena1.datum_do == None).first()
-    zaprimka.cijena_1_o = cijena_1
-    zaprimka.cijena_1 = cijena_1.id
+    if not zaprimka.cijena_1_o:
+        cijena_1 = Cijena1.query.order_by(Cijena1.tstapm.desc()).filter(Cijena1.datum_do == None).first()
+        zaprimka.cijena_1_o = cijena_1
+        zaprimka.cijena_1 = cijena_1.id
     zaprimka.cijena_kn += float(zaprimka.cijena_1_o.cijena_kn_kg) * float(zaprimka.masa_kalib_1)
-    cijena_2 = Cijena2.query.order_by(Cijena2.tstapm.desc()).filter(Cijena2.datum_do == None).first()
-    zaprimka.cijena_2_o = cijena_2
-    zaprimka.cijena_2 = cijena_2.id
+    if not zaprimka.cijena_2_o:
+        cijena_2 = Cijena2.query.order_by(Cijena2.tstapm.desc()).filter(Cijena2.datum_do == None).first()
+        zaprimka.cijena_2_o = cijena_2
+        zaprimka.cijena_2 = cijena_2.id
     zaprimka.cijena_kn += float(zaprimka.cijena_2_o.cijena_kn_kg) * float(zaprimka.masa_kalib_2)
-    cijena_3 = Cijena3.query.order_by(Cijena3.tstapm.desc()).filter(Cijena3.datum_do == None).first()
-    zaprimka.cijena_3_o = cijena_3
-    zaprimka.cijena_3 = cijena_3.id
-    zaprimka.cijena_kn += float(zaprimka.cijena_3_o.cijena_kn_kg) * float(zaprimka.masa_kalib_3)
-    cijena_4 = Cijena4.query.order_by(Cijena4.tstapm.desc()).filter(Cijena4.datum_do == None).first()
-    zaprimka.cijena_4_o = cijena_4
-    zaprimka.cijena_4 = cijena_4.id
+    if not zaprimka.cijena_3_o:
+        cijena_3 = Cijena3.query.order_by(Cijena3.tstapm.desc()).filter(Cijena3.datum_do == None).first()
+        zaprimka.cijena_3_o = cijena_3
+        zaprimka.cijena_3 = cijena_3.id
+        zaprimka.cijena_kn += float(zaprimka.cijena_3_o.cijena_kn_kg) * float(zaprimka.masa_kalib_3)
+    if not zaprimka.cijena_4_o:
+        cijena_4 = Cijena4.query.order_by(Cijena4.tstapm.desc()).filter(Cijena4.datum_do == None).first()
+        zaprimka.cijena_4_o = cijena_4
+        zaprimka.cijena_4 = cijena_4.id
     zaprimka.cijena_kn += float(zaprimka.cijena_4_o.cijena_kn_kg) * float(zaprimka.masa_kalib_4)
-    cijena_5 = Cijena5.query.order_by(Cijena5.tstapm.desc()).filter(Cijena5.datum_do == None).first()
-    zaprimka.cijena_5_o = cijena_5
-    zaprimka.cijena_5 = cijena_5.id
+    if not zaprimka.cijena_5_o:
+        cijena_5 = Cijena5.query.order_by(Cijena5.tstapm.desc()).filter(Cijena5.datum_do == None).first()
+        zaprimka.cijena_5_o = cijena_5
+        zaprimka.cijena_5 = cijena_5.id
     zaprimka.cijena_kn += float(zaprimka.cijena_5_o.cijena_kn_kg) * float(zaprimka.masa_kalib_5)
+
 
