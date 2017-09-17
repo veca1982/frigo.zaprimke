@@ -16,7 +16,7 @@ def get_cijena(calibar_id, cijena):
     elif calibar_id == '4':
         cijena = Cijena4(cijena, datetime.datetime.utcnow())
     else:
-        cijena = Cijena5
+        cijena = Cijena5(cijena, datetime.datetime.utcnow())
     return cijena
 
 def get_last_active_cijena(calibar_id):

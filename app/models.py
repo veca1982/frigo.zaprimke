@@ -9,6 +9,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import datetime
 from sqlalchemy.dialects.postgresql import BYTEA
+from decimal import Decimal
 
 from app import db, login_manager
 
@@ -61,7 +62,8 @@ class Zaprimka(db.Model):
     masa_kalib_4 = db.Column(Float)
     masa_kalib_5 = db.Column(Float)
     otpad_masa = db.Column(Float)
-    netto_masa = db.Column(Float)
+    netto_masa_1 = db.Column(Float)
+    netto_masa_2 = db.Column(Float)
     barcode = db.Column(BYTEA)
     cijena_kn = db.Column(Float)
     cijena_1x = db.Column(Integer, ForeignKey(schema+'.cijena_1x.id'), nullable=False)
@@ -94,6 +96,9 @@ class Zaprimka(db.Model):
 
     def __repr__ (self):
         return '<id {}>'.format(self.id)
+
+    def calculate_netto_1(self):
+        self.netto_masa_1 = self.brutto_masa - Decimal(20.00) - Decimal((self.vl_gajbi+self.kop_gajbi)*1.6)
 
     def serialize(self):
         return {

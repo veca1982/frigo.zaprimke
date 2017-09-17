@@ -82,11 +82,12 @@ def add_zaprimka():
     add_zaprimka = True
 
     form = ZaprimkaForm()
-    form.koperant.choices = [(row.id, row.prezime+', '+row.ime) for row in Koperant.query.order_by(Koperant.prezime.asc()).all()]
+    form.koperant.choices = [(row.id, row.prezime+', '+row.ime+(', '+row.sifra_koperanta if row.sifra_koperanta else '')) for row in Koperant.query.order_by(Koperant.prezime.asc()).all()]
     if form.validate_on_submit():
         #form.koperant.data je id selectiranog Koperanta
         zaprimka = Zaprimka(form.brutto_masa.data, form.vl_gajbi.data, form.kop_gajbi.data,
                             form.regija.data, __get_koperant(form.koperant.data), form.napomena.data)
+        zaprimka.calculate_netto_1()
         zaprimka.status = status['Zaprimljeno']
         zaprimka.datum_zaprimanja = datetime.datetime.now()
         try:
@@ -112,7 +113,7 @@ def edit_zaprimka(id):
     add_zaprimka = False
     zaprimka = Zaprimka.query.get_or_404(id)
     form = ZaprimkaForm(obj=zaprimka)
-    form.koperant.choices = [(row.id, row.prezime + ', ' + row.ime) for row in Koperant.query.order_by(Koperant.prezime.asc()).all()]
+    form.koperant.choices = [(row.id, row.prezime + ', ' + row.ime+(', '+row.sifra_koperanta if row.sifra_koperanta else '')) for row in Koperant.query.order_by(Koperant.prezime.asc()).all()]
 
     if request.method == 'GET':
         #prikayi onog koji jest u bazi
@@ -263,7 +264,7 @@ def __populate_zaprimka(zaprimka, form):
 
 
 def __calculate_cijene(zaprimka):
-    zaprimka.netto_masa = zaprimka.brutto_masa - zaprimka.otpad_masa
+    zaprimka.netto_masa_2 = float(zaprimka.netto_masa_1) - float(zaprimka.otpad_masa)
     if not zaprimka.cijena_1x_o:
         cijena_1x = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(Cijena1x.datum_do == None).first()
         zaprimka.cijena_1x_o = cijena_1x
