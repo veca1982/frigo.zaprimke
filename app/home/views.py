@@ -25,6 +25,13 @@ import datetime
 #path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
 #config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
 
+
+def __check_user_has_role():
+    if not current_user.is_admin and not current_user.role_id:
+        abort(403)
+
+
+
 @home.route('/')
 def homepage():
     """
@@ -39,6 +46,7 @@ def dashboard():
     """
     Render the dashboard template on the /dashboard route
     """
+    __check_user_has_role()
     return render_template('home/dashboard.html', title="Dashboard")
 
 
@@ -48,6 +56,7 @@ def zaprimke():
     """
     Render the dashboard template on the /dashboard route
     """
+    __check_user_has_role()
     num_of_items = Zaprimka.query.count()
     pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=1)
     #zaprimkas = Zaprimka.query.limit(10).all()
@@ -63,6 +72,7 @@ def zaprimke_pager(page):
     """
     Render the dashboard template on the /dashboard route
     """
+    __check_user_has_role()
     num_of_items = Zaprimka.query.count()
     pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=page)
     #zaprimkas = Zaprimka.query.limit(10).all()
@@ -79,6 +89,7 @@ def add_zaprimka():
     """
     Add a department to the database
     """
+    __check_user_has_role()
     add_zaprimka = True
 
     form = ZaprimkaForm()
@@ -110,6 +121,8 @@ def add_zaprimka():
 @home.route('/home/edit_zaprimka/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_zaprimka(id):
+    __check_user_has_role()
+
     add_zaprimka = False
     zaprimka = Zaprimka.query.get_or_404(id)
     form = ZaprimkaForm(obj=zaprimka)
@@ -146,6 +159,7 @@ def delete_zaprimka(id):
     """
     Delete a department from the database
     """
+    __check_user_has_role()
 
     zaprimka = Zaprimka.query.get_or_404(id)
     db.session.delete(zaprimka)
@@ -168,7 +182,10 @@ def admin_dashboard():
 
 
 @home.route('/rest/zaprimkas/', methods = ['GET'])
+@login_required
 def return_all_zaprimkas():
+    __check_user_has_role()
+
     zaprimkas = []
     upit = request.args.get('upit')
     if upit.isdigit():
@@ -189,7 +206,10 @@ def return_all_zaprimkas():
 
 @home.route('/hello/', defaults={'id': '13'})
 @home.route('/hello/<id>/')
+@login_required
 def hello_html(id):
+    __check_user_has_role()
+
     os.environ['PATH'] += os.pathsep + os.path.dirname(sys.executable)  
     WKHTMLTOPDF_CMD = subprocess.Popen(
         ['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')], # Note we default to 'wkhtmltopdf' as the binary name

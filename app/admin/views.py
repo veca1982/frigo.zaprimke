@@ -157,7 +157,7 @@ def add_role():
             flash('Error: role name already exists.')
 
         # redirect to the roles page
-        return redirect(url_for('admin.list_roles')).encode( "utf-8" )
+        return redirect(url_for('admin.list_roles'))
 
     # load role template
     return render_template('admin/roles/role.html', add_role=add_role,
