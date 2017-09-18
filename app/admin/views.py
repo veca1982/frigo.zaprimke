@@ -282,7 +282,8 @@ def add_kooperant():
     form = KooperantForm()
     if form.validate_on_submit():
         kooperant = Koperant(ime=form.ime.data,
-                                prezime=form.prezime.data, global_gap=form.global_gap.data)
+                                prezime=form.prezime.data, global_gap=form.global_gap.data,
+                                 sifra_koperanta=form.sifra_koperanta.data)
         try:
             # add department to the database
             db.session.add(kooperant)

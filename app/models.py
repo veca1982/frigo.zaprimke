@@ -33,10 +33,11 @@ class Koperant(db.Model):
     tstapm = db.Column(DateTime(timezone=True), server_default=func.now())
     zaprimke = db.relationship('Zaprimka', back_populates='koperant', lazy='dynamic')
 
-    def __init__(self, ime, prezime, global_gap):
+    def __init__(self, ime, prezime, global_gap, sifra_koperanta):
         self.ime = ime
         self.prezime = prezime
         self.global_gap = global_gap
+        self.sifra_koperanta = sifra_koperanta
 
     def __repr__ (self):
         return '<id {}>'.format(self.id)
