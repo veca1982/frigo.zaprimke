@@ -90,7 +90,7 @@ def edit_department(id):
         flash('You have successfully edited the department.')
 
         # redirect to the departments page
-        return redirect(url_for('admin.list_departments')).encode( "utf-8" )
+        return redirect(url_for('admin.list_departments'))
 
     form.description.data = department.description
     form.name.data = department.name

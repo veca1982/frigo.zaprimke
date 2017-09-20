@@ -256,11 +256,10 @@ def __get_koperant(id):
 
 
 def __validate_mase(form):
-    if form.brutto_masa.data >= form.masa_kalib_1x.data + form.masa_kalib_1.data + form.masa_kalib_2.data \
-            + form.masa_kalib_3.data + form.masa_kalib_4.data + form.masa_kalib_5.data:
+    if form.brutto_masa.data >= form.masa_kalib_4.data + form.masa_kalib_5.data:
         return None
     else:
-        return 'Brutto masa ne smije biti manja od zbroja ukupnih massa!'
+        return 'Brutto masa ne smije biti manja od zbroja masa kalibra 4 i 5!'
 
 
 def __populate_zaprimka(zaprimka, form):
@@ -270,10 +269,10 @@ def __populate_zaprimka(zaprimka, form):
     zaprimka.regija = form.regija.data
     zaprimka.id_koperanta = form.koperant.data
     zaprimka.koperant = __get_koperant(form.koperant.data)
-    zaprimka.masa_kalib_1x = form.masa_kalib_1x.data
-    zaprimka.masa_kalib_1 = form.masa_kalib_1.data
-    zaprimka.masa_kalib_2 = form.masa_kalib_2.data
-    zaprimka.masa_kalib_3 = form.masa_kalib_3.data
+    #zaprimka.masa_kalib_1x = form.masa_kalib_1x.data
+    #zaprimka.masa_kalib_1 = form.masa_kalib_1.data
+    #zaprimka.masa_kalib_2 = form.masa_kalib_2.data
+    #zaprimka.masa_kalib_3 = form.masa_kalib_3.data
     zaprimka.masa_kalib_4 = form.masa_kalib_4.data
     zaprimka.masa_kalib_5 = form.masa_kalib_5.data
     zaprimka.otpad_masa = form.otpad_masa.data
@@ -285,6 +284,10 @@ def __populate_zaprimka(zaprimka, form):
 
 def __calculate_cijene(zaprimka):
     zaprimka.netto_masa_2 = float(zaprimka.netto_masa_1) - float(zaprimka.otpad_masa)
+    zaprimka.masa_kalib_1x = ( float(zaprimka.netto_masa_2) - ( float(zaprimka.masa_kalib_4) + float(zaprimka.masa_kalib_5 ) ) ) / 4
+    zaprimka.masa_kalib_1 = zaprimka.masa_kalib_1x
+    zaprimka.masa_kalib_2 = zaprimka.masa_kalib_1x
+    zaprimka.masa_kalib_3 = zaprimka.masa_kalib_1x
     if not zaprimka.cijena_1x_o:
         cijena_1x = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(Cijena1x.datum_do == None).first()
         zaprimka.cijena_1x_o = cijena_1x
