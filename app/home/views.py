@@ -150,6 +150,7 @@ def edit_zaprimka(id):
     # load department template
     return render_template('home/zaprimka.html', action="Edit",
                            add_zaprimka=add_zaprimka, form=form,
+                           zaprimka=zaprimka,
                            title="Uredi Zaprimku").encode( "utf-8" )
 
 
