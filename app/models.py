@@ -83,7 +83,7 @@ class Zaprimka(db.Model):
     datum_kalibracije = db.Column(Date)
     napomena = db.Column(Text)
     status = db.Column(Integer, nullable=False)
-    tstamp = db.Column(DateTime(timezone=True), server_default=func.now())
+    tstamp = db.Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 
     def __init__(self, brutto_masa, vl_gajbi, kop_gajbi, regija, koperant, napomena):
