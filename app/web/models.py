@@ -4,10 +4,9 @@ class Page:
     active_page = 1
     css_class = ''
 
-    def __init__(self, page, active_page, label):
+    def __init__(self, page, active_page):
         self.page = page
         self.active_page = active_page
-        self.label = label
         if active_page == page:
             self.css_class = 'active'
         else:
@@ -26,6 +25,7 @@ class Page:
 
 
 def make_paginator(pages_range, active_page, num_pages_to_display=None, block_to_display=None):
+    '''
     if num_pages_to_display and block_to_display and num_pages_to_display > len(pages_range):
         page = Page(page=page, active_page=active_page)
         borders = page.go_to_block(num_pages_to_display, block_to_display)
@@ -37,5 +37,6 @@ def make_paginator(pages_range, active_page, num_pages_to_display=None, block_to
             pages.insert(Page(page=(block_to_display-1)*num_pages_to_display, active_page=active_page, label=borders[0](0)+'-'+borders[0](1)), 0)
             pages.append(Page(page=borders[1](0), active_page=active_page, label=borders[1](0)+'-'+borders[1](1)))
     else:
-        pages = [Page(page=page, active_page=active_page) for page in pages_range]
+    '''
+    pages = [Page(page=page, active_page=active_page) for page in pages_range]
     return pages
