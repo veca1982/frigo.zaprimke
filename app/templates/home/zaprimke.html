@@ -60,7 +60,7 @@
           <div class="col-md-4 text-center">
               <ul class="pagination">
               {% for page in pages  %}
-                <li class="{{page.css_class}}"><a href="{{ url_for('home.zaprimke_pager', page=page.page) }}">{{page.page}}</a></li>
+                <li class="{{page.css_class}}"><a href="{{ url_for('home.zaprimke_pager', page=page.page) }}">{{page.label}}</a></li>
               {% endfor %}
               </ul>
           </div>

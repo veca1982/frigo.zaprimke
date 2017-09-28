@@ -58,7 +58,7 @@ def zaprimke():
     """
     __check_user_has_role()
     num_of_items = Zaprimka.query.count()
-    pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=1)
+    pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=1, num_pages_to_display=5, block_to_display=1)
     #zaprimkas = Zaprimka.query.limit(10).all()
     zaprimkas = Zaprimka.query.order_by(Zaprimka.id.desc()).paginate(1, 10, error_out=False).items
 
@@ -74,7 +74,7 @@ def zaprimke_pager(page):
     """
     __check_user_has_role()
     num_of_items = Zaprimka.query.count()
-    pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=page)
+    pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=page, )
     #zaprimkas = Zaprimka.query.limit(10).all()
     zaprimkas = Zaprimka.query.order_by(Zaprimka.id.desc()).paginate(page, 10, error_out=False).items
 
@@ -289,11 +289,12 @@ def __calculate_cijene(zaprimka):
     zaprimka.masa_kalib_1 = zaprimka.masa_kalib_1x
     zaprimka.masa_kalib_2 = zaprimka.masa_kalib_1x
     zaprimka.masa_kalib_3 = zaprimka.masa_kalib_1x
+    zaprimka.cijena_kn = 0
     if not zaprimka.cijena_1x_o:
         cijena_1x = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(Cijena1x.datum_do == None).first()
         zaprimka.cijena_1x_o = cijena_1x
         zaprimka.cijena_1x = cijena_1x.id
-    zaprimka.cijena_kn = float(zaprimka.cijena_1x_o.cijena_kn_kg) * float(zaprimka.masa_kalib_1x)
+    zaprimka.cijena_kn += float(zaprimka.cijena_1x_o.cijena_kn_kg) * float(zaprimka.masa_kalib_1x)
     if not zaprimka.cijena_1_o:
         cijena_1 = Cijena1.query.order_by(Cijena1.tstapm.desc()).filter(Cijena1.datum_do == None).first()
         zaprimka.cijena_1_o = cijena_1
