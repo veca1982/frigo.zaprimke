@@ -55,11 +55,11 @@ def zaprimke():
     """
     Render the dashboard template on the /dashboard route
     """
-    num_items_per_page = 2
+    num_items_per_page = 10
     __check_user_has_role()
     num_of_items = Zaprimka.query.count()
     #pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=1)
-    paginator = Paginator(num_items=num_of_items, num_items_per_page=num_items_per_page, max_pages_per_block=5)
+    #paginator = Paginator(num_items=num_of_items, num_items_per_page=num_items_per_page, max_pages_per_block=5)
     pages = paginator.make_paginator(active_page=1)
     #zaprimkas = Zaprimka.query.limit(10).all()
     zaprimkas = Zaprimka.query.order_by(Zaprimka.id.desc()).paginate(1, num_items_per_page, error_out=False).items
@@ -74,12 +74,12 @@ def zaprimke_pager(page):
     """
     Render the dashboard template on the /dashboard route
     """
-    num_items_per_page = 2
+    num_items_per_page = 10
     __check_user_has_role()
     num_of_items = Zaprimka.query.count()
-    paginator = Paginator(num_items=num_of_items, num_items_per_page=num_items_per_page, max_pages_per_block=5)
-    pages = paginator.make_paginator(active_page=page)
-    #pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=page)
+    #paginator = Paginator(num_items=num_of_items, num_items_per_page=num_items_per_page, max_pages_per_block=5)
+    #pages = paginator.make_paginator(active_page=page)
+    pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=page)
     #zaprimkas = Zaprimka.query.limit(10).all()
     zaprimkas = Zaprimka.query.order_by(Zaprimka.id.desc()).paginate(page, num_items_per_page, error_out=False).items
 
