@@ -309,7 +309,7 @@ def __calculate_cijene(zaprimka):
         cijena_3 = Cijena3.query.order_by(Cijena3.tstapm.desc()).filter(Cijena3.datum_do == None).first()
         zaprimka.cijena_3_o = cijena_3
         zaprimka.cijena_3 = cijena_3.id
-        zaprimka.cijena_kn += float(zaprimka.cijena_3_o.cijena_kn_kg) * float(zaprimka.masa_kalib_3)
+    zaprimka.cijena_kn += float(zaprimka.cijena_3_o.cijena_kn_kg) * float(zaprimka.masa_kalib_3)
     if not zaprimka.cijena_4_o:
         cijena_4 = Cijena4.query.order_by(Cijena4.tstapm.desc()).filter(Cijena4.datum_do == None).first()
         zaprimka.cijena_4_o = cijena_4
