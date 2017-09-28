@@ -58,7 +58,7 @@ def zaprimke():
     """
     __check_user_has_role()
     num_of_items = Zaprimka.query.count()
-    pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=1, num_pages_to_display=5, block_to_display=1)
+    pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=1)
     #zaprimkas = Zaprimka.query.limit(10).all()
     zaprimkas = Zaprimka.query.order_by(Zaprimka.id.desc()).paginate(1, 10, error_out=False).items
 
@@ -74,7 +74,7 @@ def zaprimke_pager(page):
     """
     __check_user_has_role()
     num_of_items = Zaprimka.query.count()
-    pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=page, )
+    pages = make_paginator(range(1, int(np.ceil(num_of_items/10.00))+1), active_page=page)
     #zaprimkas = Zaprimka.query.limit(10).all()
     zaprimkas = Zaprimka.query.order_by(Zaprimka.id.desc()).paginate(page, 10, error_out=False).items
 
