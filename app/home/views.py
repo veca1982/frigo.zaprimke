@@ -19,7 +19,6 @@ import sys
 from .. import db
 
 from . import home
-
 import datetime
 
 #path_wkthmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
