@@ -57,7 +57,7 @@
                 </table>
               </div>
           </div>
-          <div class="col-md-4 text-center">
+          <div class="col-md-6 text-center">
               <ul class="pagination">
               {% for page in pages  %}
                 <li class="{{page.css_class}}"><a href="{{ url_for('home.zaprimke_pager', page=page.page) }}">{{page.label}}</a></li>
