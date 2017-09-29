@@ -39,13 +39,13 @@ class Paginator:
                 return pages
             elif block_active_page == num_of_blocks:
                 pages = [Page(page=page, active_page=active_page, label=page) for page in range((block_active_page-1)*self.max_pages_per_block+1, 
-                    (block_active_page)*self.max_pages_per_block+1)]
+                    pages_to_display)]
                 pages.insert(0, Page(page=self.max_pages_per_block*(block_active_page-1), active_page=active_page, label=str((block_active_page-2)*
                     self.max_pages_per_block+1)+'-'+str((block_active_page-1)*self.max_pages_per_block)))
                 return pages
             else:
                 pages = [Page(page=page, active_page=active_page, label=page) for page in range((block_active_page-1)*self.max_pages_per_block+1, 
-                    pages_to_display)]
+                    (block_active_page)*self.max_pages_per_block+1)]
                 pages.append(Page(page=self.max_pages_per_block*block_active_page+1, active_page=active_page, label=str(self.max_pages_per_block*block_active_page+1)+'-'+
                     str(self.max_pages_per_block*block_active_page+self.max_pages_per_block)))
                 pages.insert(0, Page(page=self.max_pages_per_block*(block_active_page-1), active_page=active_page, label=str((block_active_page-2)*
