@@ -1,4 +1,4 @@
-import numpy as np
+import math
 
 class Page:
     page = 1
@@ -26,12 +26,12 @@ class Paginator:
         self.max_pages_per_block = max_pages_per_block
 
     def make_paginator(self, active_page):
-        pages_to_display = int(np.ceil(self.num_items/self.num_items_per_page))
+        pages_to_display = int(math.ceil(float(self.num_items)/float(self.num_items_per_page)))
         if pages_to_display <= self.max_pages_per_block:
             return [Page(page=page, active_page=active_page, label=page) for page in range(1, pages_to_display+1)]
         else:
-            num_of_blocks = int(np.ceil(pages_to_display/self.max_pages_per_block))
-            block_active_page = int(np.ceil(active_page/self.max_pages_per_block))
+            num_of_blocks = int(math.ceil(float(pages_to_display)/float(self.max_pages_per_block)))
+            block_active_page = int(math.ceil(float(active_page)/float(self.max_pages_per_block)))
             if block_active_page == 1:
                 pages = [Page(page=page, active_page=active_page, label=page) for page in range(1, self.max_pages_per_block+1)]
                 pages.append(Page(page=self.max_pages_per_block+1, active_page=active_page, label=str(self.max_pages_per_block+1)+'-'+
