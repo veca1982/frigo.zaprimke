@@ -20,10 +20,26 @@ class Page:
 
 
 class Paginator:
+    class __Paginator:
+        def __init__(self, num_items, num_items_per_page, max_pages_per_block):
+            self.num_items = num_items
+            self.num_items_per_page = num_items_per_page
+            self.max_pages_per_block = max_pages_per_block
+
+        def __str__(self):
+            return repr(self)
+    instance = None
+
     def __init__(self, num_items, num_items_per_page, max_pages_per_block):
-        self.num_items = num_items
-        self.num_items_per_page = num_items_per_page
-        self.max_pages_per_block = max_pages_per_block
+        if not Paginator.instance:
+            Paginator.instance = Paginator.__Paginator(num_items, num_items_per_page, max_pages_per_block)
+        else:
+            Paginator.instance.num_items = num_items
+            Paginator.instance.num_items_per_page = num_items_per_page
+            Paginator.instance.max_pages_per_block = max_pages_per_block
+
+    def __getattr__(self, name):
+        return getattr(self.instance, name)
 
     def make_paginator(self, active_page):
         pages_to_display = int(math.ceil(float(self.num_items)/float(self.num_items_per_page)))
@@ -58,3 +74,10 @@ def make_paginator(pages_range, active_page):
     pages = [Page(page=page, active_page=active_page, label=page) for page in pages_range]
     return pages
 
+if __name__ == '__main__':
+    pagi = Paginator(50, 5, 5)
+    pagi.make_paginator(2)
+    print pagi
+    pagi = Paginator(30, 5, 5)
+    pagi.make_paginator(1)
+    print pagi
