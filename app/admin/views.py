@@ -370,7 +370,7 @@ def add_cijena():
             last_cijena = get_last_active_cijena(caliber)
             try:
                 # add nova cijena
-                if last_cijena != None: 
+                if last_cijena is not None: 
                     last_cijena.datum_do = cijena.datum_od - datetime.timedelta(days=1)
                     db.session.add(last_cijena)
                 db.session.add(cijena)
