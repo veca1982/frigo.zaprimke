@@ -370,7 +370,7 @@ def add_cijena():
             last_cijena = get_last_active_cijena(caliber)
             try:
                 # add nova cijena
-                last_cijena.datum_do = datetime.datetime.utcnow()
+                last_cijena.datum_do = cijena.datum_od
                 db.session.add(last_cijena)
                 db.session.add(cijena)
                 db.session.commit()
