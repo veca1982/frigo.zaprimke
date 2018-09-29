@@ -282,15 +282,16 @@ def __populate_zaprimka(zaprimka, form):
     zaprimka.masa_kalib_3 = form.masa_kalib_3.data
     zaprimka.masa_kalib_4 = form.masa_kalib_4.data
     zaprimka.masa_kalib_5 = form.masa_kalib_5.data
+    zaprimka.masa_kalo = form.masa_kalo.data
     zaprimka.otpad_masa = form.otpad_masa.data
     zaprimka.status = status['Obrađeno']
     zaprimka.napomena = form.napomena.data
-    zaprimka.datum_kalibracije = datetime.datetime.now()
+    zaprimka.datum_kalibracije = zaprimka.datum_zaprimanja + datetime.timedelta(days=5)
     return zaprimka
 
 
 def __calculate_cijene(zaprimka):
-    zaprimka.netto_masa_2 = float(zaprimka.netto_masa_1) - float(zaprimka.otpad_masa)
+    zaprimka.netto_masa_2 = float(zaprimka.netto_masa_1) - float(zaprimka.otpad_masa) - float(zaprimka.masa_kalo)
     zaprimka.masa_kalib_1x = ( float(zaprimka.netto_masa_2) - ( float(zaprimka.masa_kalib_4) + float(zaprimka.masa_kalib_5 ) ) ) / 4
     zaprimka.masa_kalib_1 = zaprimka.masa_kalib_1x
     zaprimka.masa_kalib_2 = zaprimka.masa_kalib_1x

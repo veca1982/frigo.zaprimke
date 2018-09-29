@@ -21,6 +21,7 @@ class ZaprimkaForm(FlaskForm):
     masa_kalib_3 = DecimalField('Masa kalibar 3 kg', id='masa_kalib_3')
     masa_kalib_4 = DecimalField('Masa kalibar 4 kg', id='masa_kalib_4')
     masa_kalib_5 = DecimalField('Masa kalibar 5 kg', id='masa_kalib_5')
+    masa_kalo = DecimalField('Masa kalo kg', id='masa_kalo')
     otpad_masa = DecimalField('Otpad masa kg', id='otpad_masa')
     napomena = TextField('Napomena', id='napomena')
 

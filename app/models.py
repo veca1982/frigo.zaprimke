@@ -81,6 +81,7 @@ class Zaprimka(db.Model):
     cijena_5_o = relationship('Cijena5', back_populates='zaprimke')
     datum_zaprimanja = db.Column(Date)
     datum_kalibracije = db.Column(Date)
+    masa_kalo = db.Column(Float)
     napomena = db.Column(Text)
     status = db.Column(Integer, nullable=False)
     tstamp = db.Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())

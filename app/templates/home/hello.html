@@ -3,7 +3,12 @@
 <title>Hello</title>
 <body>
     <h1> Frigo - Bonsai </h1>
+    {% if zaprimka.status == 0 %}
     <h1>Zaprimka broj {{zaprimka.id}} </h1>
+    {% endif %}
+    {% if zaprimka.status == 1 %}
+    <h1>Otkupni blok {{zaprimka.id}} </h1>
+    {% endif %}
     <br/>
     <br/>
     <div class="container">
@@ -51,10 +56,10 @@
             </div> -->
             <div class="form-group col-xs-6">
                 {% set massa = zaprimka.masa_kalib_1 + zaprimka.masa_kalib_1x + zaprimka.masa_kalib_2 + zaprimka.masa_kalib_3 %}
-                Masa kalibar 1, 2, 3 (kg) : {{ '%0.2f' % massa }}
+                Masa kalibar 1,2,3 (kg) : {{ '%0.2f' % massa }}
             </div>
             <div class="form-group col-xs-6">
-                Cijena po kg, kalibar 1, 2, 3 : {{ zaprimka.cijena_1_o.cijena_kn_kg }}
+                Cijena po kg, kalibar 1,2,3 : {{ zaprimka.cijena_1_o.cijena_kn_kg }}
             </div>
             <!--<div class="form-group col-xs-6">
                 Masa kalibar 2 (kg) : {{ '%0.2f' % zaprimka.masa_kalib_2 }}
