@@ -371,7 +371,7 @@ def add_cijena():
             try:
                 # add nova cijena
                 if last_cijena != None:
-                    last_cijena.datum_do = cijena.datum_od.timedelta(days=-1)
+                    last_cijena.datum_do += cijena.datum_od.timedelta(days=-1)
                     db.session.add(last_cijena)
                 db.session.add(cijena)
                 db.session.commit()
