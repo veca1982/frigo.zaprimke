@@ -8,6 +8,7 @@ from flask_login import current_user, login_required
 from ..models import Zaprimka, Koperant, status, status_back, Cijena1x, Cijena1, Cijena2, Cijena3, Cijena4, Cijena5
 from .forms import ZaprimkaForm
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy import or_, and_
 from ..web.models import make_paginator, Paginator
 import numpy as np
 import pdfkit
@@ -266,7 +267,7 @@ def __validate_mase(form):
         return None
     else:
         return 'Brutto masa ne smije biti manja od zbroja masa kalibra 4 i 5!'
-
+     
 
 def __populate_zaprimka(zaprimka, form):
     zaprimka.brutto_masa = form.brutto_masa.data
@@ -275,10 +276,10 @@ def __populate_zaprimka(zaprimka, form):
     zaprimka.regija = form.regija.data
     zaprimka.id_koperanta = form.koperant.data
     zaprimka.koperant = __get_koperant(form.koperant.data)
-    #zaprimka.masa_kalib_1x = form.masa_kalib_1x.data
-    #zaprimka.masa_kalib_1 = form.masa_kalib_1.data
-    #zaprimka.masa_kalib_2 = form.masa_kalib_2.data
-    #zaprimka.masa_kalib_3 = form.masa_kalib_3.data
+    zaprimka.masa_kalib_1x = form.masa_kalib_1x.data
+    zaprimka.masa_kalib_1 = form.masa_kalib_1.data
+    zaprimka.masa_kalib_2 = form.masa_kalib_2.data
+    zaprimka.masa_kalib_3 = form.masa_kalib_3.data
     zaprimka.masa_kalib_4 = form.masa_kalib_4.data
     zaprimka.masa_kalib_5 = form.masa_kalib_5.data
     zaprimka.otpad_masa = form.otpad_masa.data
@@ -296,7 +297,8 @@ def __calculate_cijene(zaprimka):
     zaprimka.masa_kalib_3 = zaprimka.masa_kalib_1x
     zaprimka.cijena_kn = 0
     if not zaprimka.cijena_1x_o:
-        cijena_1x = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(Cijena1x.datum_do == None).first()
+        # = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(Cijena1x.datum_do == None).first()
+        cijena_1x = Cijena1x.query.filter(and_(Cijena1x.datum_od >= zaprimka.datum_zaprimanja, or_(Cijena1x.datum_do <= zaprimka.datum_zaprimanja, Cijena1x.datum_do == None )))
         zaprimka.cijena_1x_o = cijena_1x
         zaprimka.cijena_1x = cijena_1x.id
     zaprimka.cijena_kn += float(zaprimka.cijena_1x_o.cijena_kn_kg) * float(zaprimka.masa_kalib_1x)

@@ -43,19 +43,19 @@
             <div class="form-group col-xs-6">
                 Datum obrade : {{ zaprimka.datum_kalibracije }}
             </div>
-            <div class="form-group col-xs-6">
+            <!-- <div class="form-group col-xs-6">
                 Masa kalibar 1x (kg) : {{ '%0.2f' % zaprimka.masa_kalib_1x }}
             </div>
             <div class="form-group col-xs-6">
                 Cijena po kg, kalibar 1x : {{ zaprimka.cijena_1x_o.cijena_kn_kg }}
+            </div> -->
+            <div class="form-group col-xs-6">
+                Masa kalibar 1, 2, 3 (kg) : {{ '%0.2f' % zaprimka.masa_kalib_1+zaprimka.masa_kalib_1x+zaprimka.masa_kalib_2+zaprimka.masa_kalib_3 }}
             </div>
             <div class="form-group col-xs-6">
-                Masa kalibar 1 (kg) : {{ '%0.2f' % zaprimka.masa_kalib_1 }}
+                Cijena po kg, kalibar 1, 2, 3 : {{ zaprimka.cijena_1_o.cijena_kn_kg }}
             </div>
-            <div class="form-group col-xs-6">
-                Cijena po kg, kalibar 1 : {{ zaprimka.cijena_1_o.cijena_kn_kg }}
-            </div>
-            <div class="form-group col-xs-6">
+            <!--<div class="form-group col-xs-6">
                 Masa kalibar 2 (kg) : {{ '%0.2f' % zaprimka.masa_kalib_2 }}
             </div>
             <div class="form-group col-xs-6">
@@ -66,7 +66,7 @@
             </div>
             <div class="form-group col-xs-6">
                 Cijena po kg, kalibar 3 : {{ zaprimka.cijena_3_o.cijena_kn_kg }}
-            </div>
+            </div>-->
             <div class="form-group col-xs-6">
                 Masa kalibar 4 (kg) : {{ '%0.2f' % zaprimka.masa_kalib_4 }}
             </div>
