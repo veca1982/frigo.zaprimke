@@ -12,7 +12,7 @@ from .forms import DepartmentForm, EmployeeAssignForm, RoleForm, KooperantForm, 
 from ..models import Department, Employee, Role, Koperant
 
 import config
-from .business import get_cijena
+from .business import get_cijena, get_last_active_cijena
 from datetime import datetime
 
 
@@ -367,8 +367,11 @@ def add_cijena():
             caliber = request.form['caliber']
             cijena = get_cijena(caliber, request.form['cijena_kn_kg'])
             cijena = __populate_with_dates(cijena, request)
+            last_cijena = get_last_active_cijena(caliber)
             try:
-                # add department to the database
+                # add nova cijena
+                last_cijena.datum_do = datetime.datetime.utcnow()
+                db.session.add(last_cijena)
                 db.session.add(cijena)
                 db.session.commit()
                 flash('Uspješno ste dodali novu cijenu.')
