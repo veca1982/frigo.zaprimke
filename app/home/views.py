@@ -292,10 +292,10 @@ def __populate_zaprimka(zaprimka, form):
 
 def __calculate_cijene(zaprimka):
     zaprimka.netto_masa_2 = float(zaprimka.netto_masa_1) - float(zaprimka.otpad_masa) - float(zaprimka.masa_kalo)
-    zaprimka.masa_kalib_1x = ( float(zaprimka.netto_masa_2) - ( float(zaprimka.masa_kalib_4) + float(zaprimka.masa_kalib_5 ) ) ) / 4
-    zaprimka.masa_kalib_1 = zaprimka.masa_kalib_1x
-    zaprimka.masa_kalib_2 = zaprimka.masa_kalib_1x
-    zaprimka.masa_kalib_3 = zaprimka.masa_kalib_1x
+    #zaprimka.masa_kalib_1x = ( float(zaprimka.netto_masa_2) - ( float(zaprimka.masa_kalib_4) + float(zaprimka.masa_kalib_5 ) ) ) / 4
+    zaprimka.masa_kalib_1 = ( float(zaprimka.netto_masa_2) - ( float(zaprimka.masa_kalib_4) + float(zaprimka.masa_kalib_5 ) + float(zaprimka.masa_kalib_1x ) ) ) / 3
+    zaprimka.masa_kalib_2 = zaprimka.masa_kalib_1
+    zaprimka.masa_kalib_3 = zaprimka.masa_kalib_1
     zaprimka.cijena_kn = 0
     if not zaprimka.cijena_1x_o:
         # = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(Cijena1x.datum_do == None).first()
