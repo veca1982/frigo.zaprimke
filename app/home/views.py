@@ -299,7 +299,7 @@ def __calculate_cijene(zaprimka):
     zaprimka.cijena_kn = 0
     if not zaprimka.cijena_1x_o:
         # = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(Cijena1x.datum_do == None).first()
-        cijena_1x = Cijena1x.query.order_by(Cijena1x.tstapm.asc()).filter(and_(Cijena1x.datum_od <= zaprimka.datum_zaprimanja, or_(Cijena1x.datum_do > zaprimka.datum_zaprimanja, Cijena1x.datum_do == None ), Cijena1x.datum_od != Cijena1x.datum_do)).first()
+        cijena_1x = Cijena1x.query.order_by(Cijena1x.tstapm.desc()).filter(and_(Cijena1x.datum_od <= zaprimka.datum_zaprimanja, or_(Cijena1x.datum_do > zaprimka.datum_zaprimanja, Cijena1x.datum_do == None ), Cijena1x.datum_od != Cijena1x.datum_do)).first()
         zaprimka.cijena_1x_o = cijena_1x
         zaprimka.cijena_1x = cijena_1x.id
     zaprimka.cijena_kn += float(zaprimka.cijena_1x_o.cijena_kn_kg) * float(zaprimka.masa_kalib_1x)
